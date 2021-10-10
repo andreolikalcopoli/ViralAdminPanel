@@ -4,4 +4,6 @@
     <color name="primaryLight">#80CDEF</color>
     <color name="darkGrey">#737373</color>
     <color name="darkRed">#ED2F2B</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 </resources>

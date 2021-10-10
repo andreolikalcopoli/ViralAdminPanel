@@ -34,28 +34,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void listeners() {
-        btnContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkFields()) {
-                    String email = etEmail.getText().toString().trim();
-                    String password = etPassword.getText().toString();
-                    firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                prefSingleton.saveString("id", firebaseAuth.getUid());
-                                utils.intent(MainActivity.class, null);
-                            } else {
-                                utils.displayMessage("Authentication failed.");
-                                etEmail.setText("");
-                                etPassword.setText("");
-                            }
-                        }
-                    });
-                } else utils.displayMessage("Please fill in all the fields");
+        btnContinue.setOnClickListener(v -> {
+            if (checkFields()) {
+                String email = etEmail.getText().toString().trim();
+                String password = etPassword.getText().toString();
+                firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        prefSingleton.saveString("id", firebaseAuth.getUid());
+                        utils.intent(MainActivity.class, null);
+                    } else {
+                        utils.displayMessage("Authentication failed.");
+                        etEmail.setText("");
+                        etPassword.setText("");
+                    }
+                });
+            } else utils.displayMessage("Please fill in all the fields");
 
-            }
         });
     }
 

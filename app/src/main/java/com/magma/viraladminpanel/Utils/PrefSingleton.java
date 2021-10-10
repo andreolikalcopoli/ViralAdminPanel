@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 public class PrefSingleton{
     private static PrefSingleton mInstance;
     private Context mContext;
-    //
+
     private SharedPreferences mMyPreferences;
 
     private PrefSingleton(){ }
