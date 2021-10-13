@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.magma.viraladminpanel.People;
+import com.magma.viraladminpanel.Popup.PopupBlockUser;
 import com.magma.viraladminpanel.Popup.PopupRemoveUser;
 import com.magma.viraladminpanel.R;
 import com.magma.viraladminpanel.User;
@@ -76,6 +77,11 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
                         holder.people_remove.setOnClickListener(view -> {
                             PopupRemoveUser popupRemoveUser = new PopupRemoveUser();
                             popupRemoveUser.showPopup(mActivity, user);
+                        });
+
+                        holder.people_block.setOnClickListener(view -> {
+                            PopupBlockUser popupBlockUser = new PopupBlockUser();
+                            popupBlockUser.showPopup(mActivity, user);
                         });
                     }
 

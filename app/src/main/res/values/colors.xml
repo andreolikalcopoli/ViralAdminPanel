@@ -6,4 +6,5 @@
     <color name="darkRed">#ED2F2B</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="m_white">#FAFAFA</color>
 </resources>
