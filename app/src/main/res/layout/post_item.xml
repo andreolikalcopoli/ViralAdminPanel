@@ -10,8 +10,8 @@
         android:id="@+id/post_top_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_30sdp"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
         android:visibility="visible"
         android:orientation="horizontal">
 
@@ -107,6 +107,7 @@
             android:gravity="center" />
     </LinearLayout>
 
+    <!--
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/consPostComments"
         android:layout_width="match_parent"
@@ -115,7 +116,7 @@
         android:layout_marginBottom="@dimen/_40sdp"
         android:background="@drawable/post_blur"
         android:padding="@dimen/_6sdp"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/commentsTitle"
@@ -192,7 +193,7 @@
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/editTextComments"
             app:layout_constraintStart_toEndOf="@+id/editTextComments" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout> -->
 
     <LinearLayout
         android:id="@+id/linearLayoutPostVideo"
@@ -226,8 +227,8 @@
         android:layout_height="@dimen/_40sdp"
         android:layout_gravity="bottom"
         android:background="@drawable/background_post_bottom_bar"
-        android:paddingLeft="@dimen/_10sdp"
-        android:paddingRight="@dimen/_10sdp"
+        android:paddingLeft="@dimen/_5sdp"
+        android:paddingRight="@dimen/_5sdp"
         android:paddingTop="@dimen/_5sdp"
         android:paddingBottom="@dimen/_5sdp"
         android:orientation="horizontal">

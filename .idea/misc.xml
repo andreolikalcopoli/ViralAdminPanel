@@ -42,8 +42,9 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/custom_controller.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/people_item.xml" value="0.67" />
-        <entry key="app/src/main/res/layout/post_item.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/remove_post_popup.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/post_item.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/post_reports_popup.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/remove_post_popup.xml" value="0.5" />
         <entry key="app/src/main/res/layout/remove_user_popup.xml" value="0.5" />
       </map>
     </option>

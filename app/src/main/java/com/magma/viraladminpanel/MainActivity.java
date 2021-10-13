@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     People people = dataSnapshot.getValue(People.class);
+                    people.setUserId(dataSnapshot.getKey());
                     mPeoples.add(people);
                 }
 
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     ReportedPost reportedPost = dataSnapshot.getValue(ReportedPost.class);
+                    reportedPost.setPostId(dataSnapshot.getKey());
                     mReportedPosts.add(reportedPost);
                 }
 
@@ -119,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 if(imageViewPost.isActivated()) progressBar.setVisibility(View.GONE);
 
                 postAdapter = new PostAdapter(getApplicationContext(), mActivity, mReportedPosts);
+                recyclerViewPosts.setAdapter(postAdapter);
             }
 
             @Override
