@@ -43,12 +43,14 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_10sdp"
         android:fontFamily="@font/poppins_regular"
         android:textColor="@color/darkGrey"
         android:textSize="@dimen/_12sdp"
         android:text="Enter the credentials you received on your email!"
+        android:textAlignment="textEnd"
         android:layout_marginTop="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />

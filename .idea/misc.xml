@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="1.0" />
+        <entry key="app/src/main/res/drawable/add_admin.xml" value="0.33" />
         <entry key="app/src/main/res/drawable/back_button_background.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/background_post_bottom_bar.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/blue_button_background.xml" value="0.371875" />
@@ -26,6 +27,7 @@
         <entry key="app/src/main/res/drawable/ic_rew.xml" value="0.12314814814814815" />
         <entry key="app/src/main/res/drawable/ic_share.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/like.xml" value="0.371875" />
+        <entry key="app/src/main/res/drawable/linear_layout_background.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/people.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/people_background.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/peopleblue.xml" value="0.371875" />
@@ -37,10 +39,12 @@
         <entry key="app/src/main/res/drawable/postblue.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/red_button_background.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/remove.xml" value="0.371875" />
+        <entry key="app/src/main/res/drawable/settings.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/spinner_background.xml" value="0.371875" />
         <entry key="app/src/main/res/font/font.xml" value="0.2657407407407407" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/add_admin_popup.xml" value="0.5" />
         <entry key="app/src/main/res/layout/block_user_popup.xml" value="0.5" />
         <entry key="app/src/main/res/layout/custom_controller.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/people_item.xml" value="0.67" />

@@ -6,19 +6,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.Repo;
+
 import com.magma.viraladminpanel.Adapter.PeopleAdapter;
 import com.magma.viraladminpanel.Adapter.PostAdapter;
+import com.magma.viraladminpanel.Popup.PopupAddAdmin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,37 +48,73 @@ public class MainActivity extends AppCompatActivity {
     private Boolean loadedPeoples;
     private Boolean loadedPosts;
 
+    private ImageButton addAdmin;
+    private ImageButton settings;
+
+    private FirebaseUser firebaseUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loadedPeoples = false;
-        loadedPosts = false;
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        mActivity = this;
+        if(firebaseUser != null) {
+            loadedPeoples = false;
+            loadedPosts = false;
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+            mActivity = this;
 
-        imageViewPeople = (ImageView) findViewById(R.id.imgPeople);
-        imageViewPost = (ImageView) findViewById(R.id.imgPosts);
-        
-        imageViewPeople.setOnClickListener(view -> onPeople());
-        imageViewPost.setOnClickListener(view -> onPost());
+            addAdmin = (ImageButton) findViewById(R.id.imageButtonAddAdmin);
+            settings = (ImageButton) findViewById(R.id.imageButtonSettings);
 
-        recyclerViewPeople = (RecyclerView) findViewById(R.id.recPeople);
-        recyclerViewPeople.setLayoutManager(new LinearLayoutManager(this));
+            DatabaseReference adminRef = FirebaseDatabase.getInstance().getReference("admins");
 
-        recyclerViewPosts = (RecyclerView) findViewById(R.id.recPosts);
-        recyclerViewPosts.setLayoutManager(new LinearLayoutManager(this));
+            adminRef.child(firebaseUser.getUid()).get()
+                    .addOnSuccessListener(dataSnapshot -> {
+                        String adminLevel = dataSnapshot.getValue(String.class);
 
-        mPeoples = new ArrayList<>();
-        mReportedPosts = new ArrayList<>();
+                        if(adminLevel.equals("head admin")) {
+                            addAdmin.setVisibility(View.VISIBLE);
+                            settings.setVisibility(View.VISIBLE);
+                        } else {
+                            addAdmin.setVisibility(View.GONE);
+                            settings.setVisibility(View.GONE);
+                        }
+                    });
 
-        onPeople();
+            addAdmin.setOnClickListener(view -> {
+                PopupAddAdmin popupAddAdmin = new PopupAddAdmin();
+                popupAddAdmin.showPopup(mActivity);
+            });
 
-        getPeoples();
-        getPosts();
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+            imageViewPeople = (ImageView) findViewById(R.id.imgPeople);
+            imageViewPost = (ImageView) findViewById(R.id.imgPosts);
+
+            imageViewPeople.setOnClickListener(view -> onPeople());
+            imageViewPost.setOnClickListener(view -> onPost());
+
+            recyclerViewPeople = (RecyclerView) findViewById(R.id.recPeople);
+            recyclerViewPeople.setLayoutManager(new LinearLayoutManager(this));
+
+            recyclerViewPosts = (RecyclerView) findViewById(R.id.recPosts);
+            recyclerViewPosts.setLayoutManager(new LinearLayoutManager(this));
+
+            mPeoples = new ArrayList<>();
+            mReportedPosts = new ArrayList<>();
+
+            onPeople();
+
+            getPeoples();
+            getPosts();
+        } else {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void getPeoples() {

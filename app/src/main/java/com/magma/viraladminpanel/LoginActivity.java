@@ -1,17 +1,12 @@
 package com.magma.viraladminpanel;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.magma.viraladminpanel.Utils.PrefSingleton;
 import com.magma.viraladminpanel.Utils.Utils;
@@ -38,10 +33,18 @@ public class LoginActivity extends AppCompatActivity {
             if (checkFields()) {
                 String email = etEmail.getText().toString().trim();
                 String password = etPassword.getText().toString();
+
+                ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setMessage("Please wait...");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                    progressDialog.dismiss();
                     if (task.isSuccessful()) {
                         prefSingleton.saveString("id", firebaseAuth.getUid());
                         utils.intent(MainActivity.class, null);
+                        finish();
                     } else {
                         utils.displayMessage("Authentication failed.");
                         etEmail.setText("");

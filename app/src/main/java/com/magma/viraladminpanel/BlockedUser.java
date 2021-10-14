@@ -5,8 +5,7 @@ public class BlockedUser {
     private DateTime durationTo;
     private String reasonForBlocking;
 
-    public BlockedUser() {
-    }
+    public BlockedUser() { }
 
     public BlockedUser(String userId, DateTime durationTo, String reasonForBlocking) {
         this.userId = userId;
