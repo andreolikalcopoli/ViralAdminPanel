@@ -27,7 +27,7 @@ import java.util.Date;
 
 public class PopupBlockUser {
 
-    private final String[] duration = {"for a month"};
+    private final String[] duration = {"for a week", "for a month", "for a 3 months"};
     private final String[] reason = {ReportType.HATE_SPEECH, ReportType.PORNOGRAPHY, ReportType.SPAM, ReportType.VIOLENCE_OR_DANGER, ReportType.FALSE_INFORMATION};
 
     public void showPopup(Activity activity, User user) {
@@ -70,6 +70,18 @@ public class PopupBlockUser {
 
     private DateTime getDurationTo(String blockDuration) {
         Calendar calendar = Calendar.getInstance();
+
+        switch (blockDuration) {
+            case "for a week":
+                calendar.add(Calendar.DAY_OF_YEAR, 7);
+                break;
+            case "for a month":
+                calendar.add(Calendar.DAY_OF_YEAR, 30);
+                break;
+            case "for a 3 months":
+                calendar.add(Calendar.DAY_OF_YEAR, 90);
+                break;
+        }
 
         SimpleDateFormat dateFormatD = new SimpleDateFormat("MM/dd/yyyy");
         SimpleDateFormat dateFormatT = new SimpleDateFormat("HH:mm");

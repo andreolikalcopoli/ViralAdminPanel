@@ -9,10 +9,11 @@ public class User {
     private String profilePhoto;
     private String token;
     private String phoneNumber;
+    private String search;
 
     public User() { }
 
-    public User(String userId, String firstName, String lastName, String birthday, String userDescription, String profilePhoto, String token, String phoneNumber) {
+    public User(String userId, String firstName, String lastName, String birthday, String userDescription, String profilePhoto, String token, String phoneNumber, String search) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -21,6 +22,7 @@ public class User {
         this.profilePhoto = profilePhoto;
         this.token = token;
         this.phoneNumber = phoneNumber;
+        this.search = search;
     }
 
     public String getUserId() { return userId; }
@@ -31,4 +33,5 @@ public class User {
     public String getProfilePhoto() { return profilePhoto; }
     public String getToken() { return token; }
     public String getPhoneNumber() { return phoneNumber; }
+    public String getSearch() { return search; }
 }

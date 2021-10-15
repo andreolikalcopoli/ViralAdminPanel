@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -31,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private void listeners() {
         btnContinue.setOnClickListener(v -> {
             if (checkFields()) {
-                String email = etEmail.getText().toString().trim();
+                String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
 
                 ProgressDialog progressDialog = new ProgressDialog(this);
@@ -57,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean checkFields() {
-        return !etEmail.getText().toString().trim().equals("") && !etPassword.getText().toString().trim().equals("");
+        return !etEmail.getText().toString().trim().isEmpty() && !etPassword.getText().toString().isEmpty();
     }
 
     private void init() {

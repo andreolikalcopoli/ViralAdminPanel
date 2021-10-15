@@ -3,13 +3,15 @@ package com.magma.viraladminpanel;
 import java.util.HashMap;
 import java.util.Map;
 
-public class People {
+public class People implements Comparable<People> {
     private String userId;
 
     private Map<String, String> blocked;
     private Map<String, String> blockedBy;
     private Map<String, String> postReports;
     private Map<String, String> profileReports;
+
+    private User user;
 
     public People() {
         this.blocked = new HashMap<>();
@@ -40,4 +42,15 @@ public class People {
 
     public Map<String, String> getProfileReports() { return profileReports; }
     public void setProfileReports(Map<String, String> profileReports) { this.profileReports = profileReports; }
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+
+    @Override
+    public int compareTo(People people) {
+        int r1 = this.blockedBy.size() + this.postReports.size();
+        int r2 = people.getBlockedBy().size() + people.getPostReports().size();
+
+        return r2 - r1;
+    }
 }

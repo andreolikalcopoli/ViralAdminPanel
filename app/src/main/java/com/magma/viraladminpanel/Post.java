@@ -10,6 +10,8 @@ public class Post {
     private Boolean optionShare;
     private Boolean optionComments;
 
+    private User postUser;
+
     public static final String POST_TYPE_IMAGE = "image";
     public static final String POST_TYPE_VIDEO = "video";
     public static final String POST_TYPE_TEXT = "text";
@@ -35,4 +37,7 @@ public class Post {
     public String getDescription() { return description; }
     public Boolean getOptionShare() { return optionShare; }
     public Boolean getOptionComments() { return optionComments; }
+
+    public User getPostUser() { return postUser; }
+    public void setPostUser(User postUser) { this.postUser = postUser; }
 }
