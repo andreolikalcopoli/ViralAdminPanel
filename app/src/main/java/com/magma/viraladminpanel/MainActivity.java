@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -30,12 +29,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.magma.viraladminpanel.Adapter.PeopleAdapter;
 import com.magma.viraladminpanel.Adapter.PostAdapter;
 import com.magma.viraladminpanel.Popup.PopupAddAdmin;
+import com.magma.viraladminpanel.Popup.PopupBlockedAdmin;
+import com.magma.viraladminpanel.Popup.PopupSettings;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -72,10 +72,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mActivity = this;
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if(firebaseUser != null) {
-            init();
+            checkBlocked();
         } else {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -83,39 +85,51 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void init() {
-        loadedPeoples = false;
-        loadedPosts = false;
-
-        mActivity = this;
-
-        addAdmin = (ImageButton) findViewById(R.id.imageButtonAddAdmin);
-        settings = (ImageButton) findViewById(R.id.imageButtonSettings);
-
+    private void checkBlocked() {
         DatabaseReference adminRef = FirebaseDatabase.getInstance().getReference("admins");
 
         adminRef.child(firebaseUser.getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String adminLevel = snapshot.getValue(String.class);
+                        Admin admin = snapshot.getValue(Admin.class);
 
-                        if(adminLevel.equals("head admin")) {
-                            addAdmin.setVisibility(View.VISIBLE);
-                            settings.setVisibility(View.VISIBLE);
+                        if(admin != null) {
+                            init(admin);
                         } else {
-                            addAdmin.setVisibility(View.GONE);
-                            settings.setVisibility(View.GONE);
+                            PopupBlockedAdmin popupBlockedAdmin = new PopupBlockedAdmin();
+                            popupBlockedAdmin.showPopup(mActivity);
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {}
                 });
+    }
+
+    private void init(Admin admin) {
+        loadedPeoples = false;
+        loadedPosts = false;
+
+        addAdmin = (ImageButton) findViewById(R.id.imageButtonAddAdmin);
+        settings = (ImageButton) findViewById(R.id.imageButtonSettings);
+
+        if(admin.getAdminLevel().equals("head admin")) {
+            addAdmin.setVisibility(View.VISIBLE);
+            settings.setVisibility(View.VISIBLE);
+        } else if(admin.getAdminLevel().equals("admin")) {
+            addAdmin.setVisibility(View.GONE);
+            settings.setVisibility(View.GONE);
+        }
 
         addAdmin.setOnClickListener(view -> {
             PopupAddAdmin popupAddAdmin = new PopupAddAdmin();
             popupAddAdmin.showPopup(mActivity);
+        });
+
+        settings.setOnClickListener(view -> {
+            PopupSettings popupSettings = new PopupSettings();
+            popupSettings.showPopup(mActivity);
         });
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);

@@ -13,10 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseError;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.magma.viraladminpanel.Admin;
 import com.magma.viraladminpanel.R;
 
 import java.util.Random;
@@ -102,7 +106,7 @@ public class PopupAddAdmin {
     private void addAdminToDatabase(Dialog dialog, final String email, final String password, final String adminLevel) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
-                    if(task.isSuccessful()) setAdminLevel(dialog, task.getResult().getUser(), adminLevel, email, password);
+                    if(task.isSuccessful()) setAdmin(dialog, task.getResult().getUser(), adminLevel, email, password);
                     else {
                         progressDialog.dismiss();
                         dialog.dismiss();
@@ -111,9 +115,12 @@ public class PopupAddAdmin {
                 });
     }
 
-    private void setAdminLevel(Dialog dialog, final FirebaseUser firebaseUser, final String adminLevel, final String email, final String password) {
+    private void setAdmin(Dialog dialog, final FirebaseUser firebaseUser, final String adminLevel, final String email, final String password) {
+        Admin admin = new Admin(firebaseUser.getUid(), firebaseUser.getEmail(), adminLevel);
+
         DatabaseReference adminRef = FirebaseDatabase.getInstance().getReference("admins");
-        adminRef.child(firebaseUser.getUid()).setValue(adminLevel)
+
+        adminRef.child(firebaseUser.getUid()).setValue(admin)
                 .addOnCompleteListener(task -> {
                     progressDialog.dismiss();
                     dialog.dismiss();
