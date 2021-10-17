@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackParameters;
@@ -107,7 +108,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         holder.user_name.setText(user.getFirstName() + " " + user.getLastName());
 
-        if(!user.getProfilePhoto().equals("default")) { Glide.with(mContext).load(user.getProfilePhoto()).into(holder.user_photo); }
+        if(!user.getProfilePhoto().equals("default")) {
+            Glide.with(mContext)
+                    .load(user.getProfilePhoto())
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                    .into(holder.user_photo);
+        }
         else { holder.user_photo.setImageResource(R.drawable.default_profile_photo); }
 
         if(post.getLocation() != null) holder.user_location.setText(post.getLocation());

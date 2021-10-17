@@ -48,7 +48,7 @@
         <entry key="app/src/main/res/layout/add_admin_popup.xml" value="0.5" />
         <entry key="app/src/main/res/layout/admin_item.xml" value="0.5" />
         <entry key="app/src/main/res/layout/block_user_popup.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/blocked_admin_popup.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/blocked_admin_popup.xml" value="0.5" />
         <entry key="app/src/main/res/layout/custom_controller.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/people_item.xml" value="0.67" />
         <entry key="app/src/main/res/layout/post_item.xml" value="0.33" />

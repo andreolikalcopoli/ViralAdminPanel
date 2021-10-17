@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.magma.viraladminpanel.People;
 import com.magma.viraladminpanel.Popup.PopupBlockUser;
 import com.magma.viraladminpanel.Popup.PopupRemoveUser;
@@ -57,6 +58,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
         if(!user.getProfilePhoto().equals("default")) {
             Glide.with(mContext)
                     .load(user.getProfilePhoto())
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
                     .into(holder.user_photo);
         } else { holder.user_photo.setImageResource(R.drawable.default_profile_photo); }
 
