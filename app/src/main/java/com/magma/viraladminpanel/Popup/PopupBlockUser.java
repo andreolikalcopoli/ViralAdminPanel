@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,13 +14,12 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 import com.magma.viraladminpanel.BlockedUser;
-import com.magma.viraladminpanel.DateTime;
 import com.magma.viraladminpanel.R;
 import com.magma.viraladminpanel.ReportType;
 import com.magma.viraladminpanel.User;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -60,7 +58,7 @@ public class PopupBlockUser {
             String blockDuration = spinnerDuration.getSelectedItem().toString();
             String reasonForBlocking = spinnerReason.getSelectedItem().toString();
 
-            DateTime durationTo = getDurationTo(blockDuration);
+            Date durationTo = getDurationTo(blockDuration);
 
             blockUser(dialog, user.getUserId(), durationTo, reasonForBlocking);
         });
@@ -68,7 +66,7 @@ public class PopupBlockUser {
         dialog.show();
     }
 
-    private DateTime getDurationTo(String blockDuration) {
+    private Date getDurationTo(String blockDuration) {
         Calendar calendar = Calendar.getInstance();
 
         switch (blockDuration) {
@@ -83,22 +81,14 @@ public class PopupBlockUser {
                 break;
         }
 
-        SimpleDateFormat dateFormatD = new SimpleDateFormat("MM/dd/yyyy");
-        SimpleDateFormat dateFormatT = new SimpleDateFormat("HH:mm");
-
-        String date = dateFormatD.format(calendar.getTime());
-        String time = dateFormatT.format(calendar.getTime());
-
-        DateTime currentTime = new DateTime(date, time);
-
-        return currentTime;
+        return calendar.getTime();
     }
 
-    private void blockUser(Dialog dialog, String userId, DateTime durationTo, String reasonForBlocking) {
+    private void blockUser(Dialog dialog, String userId, Date durationTo, String reasonForBlocking) {
         BlockedUser blockedUser = new BlockedUser(userId, durationTo, reasonForBlocking);
 
         ProgressDialog progressDialog = new ProgressDialog(dialog.getContext());
-        progressDialog.setMessage("Removing user...");
+        progressDialog.setMessage("Blocking user...");
         progressDialog.show();
 
         DatabaseReference removeRef = FirebaseDatabase.getInstance().getReference();
@@ -107,7 +97,7 @@ public class PopupBlockUser {
                 .addOnCompleteListener(task -> {
                     progressDialog.dismiss();
                     dialog.dismiss();
-                    if(task.isSuccessful()) Toast.makeText(dialog.getContext(), "Successfully removed user", Toast.LENGTH_SHORT).show();
+                    if(task.isSuccessful()) Toast.makeText(dialog.getContext(), "Successfully blocked user", Toast.LENGTH_SHORT).show();
                     else Toast.makeText(dialog.getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
